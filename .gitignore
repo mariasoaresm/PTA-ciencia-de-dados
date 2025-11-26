@@ -1,3 +1,4 @@
+agno_env/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -135,7 +136,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-agno_env/
 .env
 .envrc
 .venv
