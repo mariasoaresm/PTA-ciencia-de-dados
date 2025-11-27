@@ -22,3 +22,12 @@ flowchart LR
     %% Conexões
     A1 & A2 & A3 --> DW
     A1 & A2 & A3 --> RAG
+
+
+
+REGRAS DE CONFIANÇA (ORQUESTRAÇÃO CENTRALIZADA)
+    - Prioridade absoluta ao DW: 
+        Se o agente retornar um dado vindo da ferramenta `DWQueryTool` (Planilhas), a resposta é considerada verdade absoluta (Confidence 1.0).
+    
+    - Zero Invenção:
+        Se a ferramenta retornar vazio, o agente deve retornar erro `DATA_NOT_FOUND`. O Orquestrador deve informar ao usuário que o dado não existe, em vez de tentar responder com conhecimento geral.
