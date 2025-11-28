@@ -61,7 +61,6 @@ class DWQueryTool(Toolkit):
         try:
             con = duckdb.connect(database=':memory:')
             
-            # Busca nas colunas exatas que vimos no seu print
             query = f"""
                 SELECT 
                     product_id,
