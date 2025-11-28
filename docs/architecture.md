@@ -1,4 +1,4 @@
-# Arquitetura do Sistema Multiagente - O-Market Specialist
+# Arquitetura do Sistema Multiagente - O-Market
 
 ## 1. Visão Geral
 O sistema utiliza uma arquitetura de orquestração centralizada. O **Agente Orquestrador** recebe a pergunta do usuário e, baseado nas palavras-chave e intenção, roteia para um dos **Agentes Especialistas por Setor**.
