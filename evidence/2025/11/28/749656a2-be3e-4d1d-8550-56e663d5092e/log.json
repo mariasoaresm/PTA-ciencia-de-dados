@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "id": "749656a2-be3e-4d1d-8550-56e663d5092e",
+    "timestamp": "2025-11-28T20:27:32.964219",
+    "agent": "agent_lifestyle",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o frete médio do produto de ID 00010242fe8c5a",
+    "output": "Erro CRÍTICO no DuckDB/SQL: Binder Error: No function matches the given name and argument types 'avg(VARCHAR)'. You might need to add explicit type casts."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "source": "DuckDB/SQL"
+      },
+      {
+        "source": "avgFreightCalculation"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 2
+    }
+  }
+}

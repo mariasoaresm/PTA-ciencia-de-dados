@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "38b8c9d0-53df-49fb-9bac-daf1ca806277",
+    "timestamp": "2025-11-28T20:06:24.117049",
+    "agent": "agent_tech_auto",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual é o ID do produto mais pesado de informatica?",
+    "output": "Desculpe, não foi possível encontrar o ID do produto mais pesado de informática devido a um erro de atributo desconhecido."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "Erro de atributo desconhecido: peso"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

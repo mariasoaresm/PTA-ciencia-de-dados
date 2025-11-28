@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "request_id": "433834f6-f83d-47e1-8f78-cc9067ccc483",
+    "timestamp": "2025-11-28T07:58:32.476846",
+    "agent": "agent_tech_auto",
+    "latency_ms": 0.0,
+    "environment": "dev"
+  },
+  "input": {
+    "user_query": "Oi"
+  },
+  "output": {
+    "response_text": "Olá, estou aqui para ajudar. Como posso ajudá-lo hoje?",
+    "sources": []
+  },
+  "qa_metrics": {
+    "flag_inconsistency": false,
+    "source_count": 0
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "4a2523ab-d02a-4261-9baf-a823feafe3b3",
+    "timestamp": "2025-11-28T20:21:55.000423",
+    "agent": "agent_lifestyle",
+    "latency_ms": 1234.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o preço médio e o volume de vendas da categoria perfumaria?",
+    "output": "O preço médio da categoria perfumaria é de R$ 3151.42. Já o volume de vendas totaliza 3419 unidades."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "category": "perfumaria",
+        "source": "Banco de Dados"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

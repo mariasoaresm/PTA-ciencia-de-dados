@@ -3,38 +3,41 @@ from dotenv import load_dotenv
 from agno.team import Team
 from agno.models.groq import Groq
 
-# importa a ferramenta de logging
+# Importa a ferramenta de logging
 from app.tools import LoggerTool
 
-# importa agentes especialistas
+# Importa agentes especialistas
 from .tech_auto import tech_auto_agent
 from .home_decorations import home_decorations_agent
 from .lifestyle import lifestyle_agent
 
 load_dotenv()
 
-# instruções para o orquestrador
+# AUDITORIA
+
 TEAM_INSTRUCTIONS = """
 Você é o ORQUESTRADOR do sistema O-Market.
-Sua função NÃO é responder a pergunta diretamente, mas sim IDENTIFICAR a intenção e DELEGAR para o agente correto.
+Sua função é: Delegar, Consolidar e AUDITAR.
 
-Regras de Roteamento:
-1. Tech & Auto Agent: Para perguntas sobre eletrônicos, computadores, peças automotivas, voltagem e compatibilidade técnica.
-2. Home & Decor Agent: Para perguntas sobre móveis, decoração, eletrodomésticos, dimensões de produtos e construção.
-3. Lifestyle Agent: Para perguntas sobre saúde, beleza, moda, roupas, brinquedos, lazer e validade de produtos.
+[ ... Regras de Roteamento ... ]
 
-Instruções de Saída:
-- Os agentes retornarão dados técnicos em JSON.
-- Você deve pegar esse JSON e transformar em uma RESPOSTA FINAL AMIGÁVEL em texto (Markdown).
-- Sempre mostre as fontes (sources) que o agente utilizou.
+⚠️ PROTOCOLO DE AUDITORIA (OBRIGATÓRIO):
+Ao finalizar a resposta para o usuário, você DEVE executar a ferramenta `log_execution` (do logger_tool).
+Preencha os campos:
+- agent_name: "O-Market Orchestrator"
+- user_query: A pergunta original do usuário.
+- response_text: Sua resposta final consolidada.
+- sources: A lista de fontes que o agente especialista retornou (se houver).
+
+Não encerre a conversa sem receber a confirmação de "Log salvo com sucesso".
 """
 
 team = Team(
     name="O-Market Orchestrator",
-    model=Groq(id="llama-3.3-70b-versatile"), # O Team precisa de um modelo para decidir o roteamento
+    model=Groq(id="llama-3.3-70b-versatile"), 
     members=[tech_auto_agent, home_decorations_agent, lifestyle_agent],
-    tools=[LoggerTool()], # O Team usa o Logger para registrar o fluxo
-    instructions=TEAM_INSTRUCTIONS,
-    show_members_responses=True, # Mostra o JSON interno dos agentes no log
+    tools=[LoggerTool()], # A ferramenta está aqui
+    instructions=TEAM_INSTRUCTIONS, # As novas instruções forçam o uso dela
+    show_members_responses=True, 
     markdown=True
 )

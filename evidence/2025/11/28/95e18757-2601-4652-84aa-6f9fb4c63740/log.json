@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "95e18757-2601-4652-84aa-6f9fb4c63740",
+    "timestamp": "2025-11-28T13:51:38.964502",
+    "agent": "agent_tech_auto",
+    "latency_ms": 1000.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o preço médio e o volume de vendas dos produtos na categoria eletronicos?",
+    "output": "Nenhum produto encontrado"
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "content": "Query result: empty",
+        "type": "DW"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

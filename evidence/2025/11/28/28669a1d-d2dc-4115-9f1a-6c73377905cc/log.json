@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "28669a1d-d2dc-4115-9f1a-6c73377905cc",
+    "timestamp": "2025-11-28T20:23:46.313998",
+    "agent": "agent_tech_auto",
+    "latency_ms": 200.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual é o produto mais caro na categoria esporte_lazer?",
+    "output": "Erro interno, tente novamente mais tarde."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "TEXT",
+        "content": "DuckDB/SQL"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}
