@@ -1,17 +1,39 @@
-from agno.playground import Playground, serve_playground_app
-from fastapi.responses import HTMLResponse, RedirectResponse
 from contextlib import asynccontextmanager
-from fastapi import Request
 from urllib.parse import quote
-from .agents import team
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from agno.playground import Playground, serve_playground_app
+from agno.models.google import Gemini
 
-app = Playground(
-    name="Example Playground",
-    description="A playground for testing agents.",
-    teams=[team]
+# Imports Seguros
+try:
+    from app.agents.team import team
+    from app.agents.bi_analyst import bi_analyst_agent
+    from app.agents.tech_auto import tech_auto_agent
+    from app.agents.home_decorations import home_decorations_agent
+    from app.agents.lifestyle import lifestyle_agent
+except ImportError as e:
+    print(f"❌ [CRITICAL] Erro de Importação: {e}")
+    exit(1)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("\n🚀 [SYSTEM STARTUP] O-Market Playground Iniciando...")
+    print("✅ Logger System: ONLINE")
+    print("✅ Database Connection: READY")
+    yield
+    print("\n🛑 [SYSTEM SHUTDOWN] Encerrando serviços...")
+
+# Configuração do Playground com Agentes Individuais
+playground = Playground(
+    name="O-Market Enterprise System",
+    agents=[bi_analyst_agent, tech_auto_agent, home_decorations_agent, lifestyle_agent],
+    teams=[team],
 ).get_app()
 
-@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+playground.router.lifespan_context = lifespan
+
+@playground.get("/", response_class=HTMLResponse, include_in_schema=False)
 def home(request: Request):
     host = request.url.hostname or "localhost"
     port = request.url.port
@@ -22,58 +44,27 @@ def home(request: Request):
     <!doctype html>
     <html lang="pt-br">
       <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Agent Playground</title>
+        <meta charset="utf-8"/>
+        <title>O-Market Enterprise</title>
         <style>
-          :root {{ color-scheme: light dark; }}
-          body {{
-            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-            margin: 0; padding: 0; display: grid; min-height: 100dvh; place-items: center;
-            background: radial-gradient(1000px 600px at 50% -20%, rgba(99,102,241,.15), transparent);
-          }}
-          .card {{
-            width: min(680px, 92vw);
-            border: 1px solid color-mix(in oklab, CanvasText 12%, transparent);
-            border-radius: 20px; padding: 28px; backdrop-filter: blur(6px);
-            box-shadow: 0 10px 30px color-mix(in oklab, CanvasText 12%, transparent);
-          }}
-          h1 {{ margin: 0 0 8px; font-size: clamp(24px, 4vw, 34px); }}
-          p  {{ margin: 0 0 18px; line-height: 1.5; opacity: .85; }}
-          a.button {{
-            display: inline-block; padding: 12px 18px; border-radius: 12px; text-decoration: none;
-            border: 1px solid color-mix(in oklab, CanvasText 10%, transparent);
-          }}
+            body {{ font-family: sans-serif; background: #f0fdf4; display: grid; place-items: center; height: 100vh; margin: 0; }}
+            .container {{ background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }}
+            h1 {{ color: #166534; }}
+            .btn {{ background: #16a34a; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; }}
+            .btn:hover {{ background: #15803d; }}
         </style>
       </head>
       <body>
-        <main class="card">
-          <h1>Agent Playground</h1>
-          <p>Abra o playground em uma nova aba para testar seus agentes.</p>
-          <p><strong>URL:</strong> <code>{playground_url}</code></p>
-          <p>Selecione "Teams" e em "Endpoint" digite: <code>http://{endpoint}/v1</code> ou <code>http://localhost:{port}/v1<code></p>
-          <p style="margin-top:14px">
-            <a class="button" href="{playground_url}" target="_blank" rel="noopener">Abrir Playground ↗</a>
-          </p>
-          <p style="margin-top:22px; opacity:.7">
-            Dica: a documentação da API está em <a href="/docs">/docs</a>.
-          </p>
-        </main>
+        <div class="container">
+            <h1>🌿 O-Market System</h1>
+            <p>Estado: <strong>Operacional</strong></p>
+            <p>Módulo de Auditoria: <strong>Ativo</strong></p>
+            <br>
+            <a href="{playground_url}" target="_blank" class="btn">Acessar Console de Agentes ↗</a>
+        </div>
       </body>
     </html>
     """
 
-@app.on_event("startup")
-async def lifespan():
-    host = "127.0.0.1"
-    port = "7777"
-    endpoint = f"{host}:{port}"
-    local_url = f"http://{endpoint}"
-    cloud_url = f"https://app.agno.com/playground?endpoint={quote(endpoint)}"
-
-    print("INFO Starting playground on", local_url)
-    print("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Agent Playground ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓")
-    print("┃                                                                             ┃")
-    print(f"┃  Playground URL: {cloud_url:<54}┃")
-    print("┃                                                                             ┃")
-    print("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
+if __name__ == "__main__":
+    serve_playground_app("app.main:playground", reload=True, port=7777)

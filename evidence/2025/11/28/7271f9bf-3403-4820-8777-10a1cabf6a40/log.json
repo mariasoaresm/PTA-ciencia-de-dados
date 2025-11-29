@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "7271f9bf-3403-4820-8777-10a1cabf6a40",
+    "timestamp": "2025-11-28T09:55:09.179439",
+    "agent": "agent_tech_auto",
+    "latency_ms": 1000.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Preço do iPhone 15 pro max",
+    "output": "Preço do iPhone 15 pro max"
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "content": "Query result...",
+        "type": "DW"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

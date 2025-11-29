@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "6507a06e-f3a0-47be-bc05-8163166beccb",
+    "timestamp": "2025-11-29T18:36:28.481417",
+    "agent": "O-Market Orchestrator",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o produto mais pesado da categoria telefonia?",
+    "output": "O produto mais pesado na categoria \"telefonia\" é o \"9d6580f17a0cba74324ce82874fbbe13\" com um peso de 4300 gramas."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "output": "O produto mais pesado na categoria \"telefonia\" é o \"9d6580f17a0cba74324ce82874fbbe13\" com um peso de 4300 gramas.",
+        "member_id": "tech-auto-agent"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "request_id": "2bd5842a-b898-4648-939e-9d5fedc5adad",
+    "timestamp": "2025-11-28T08:17:54.496815",
+    "agent": "agent_tech_auto",
+    "latency_ms": 0.0,
+    "environment": "dev"
+  },
+  "input": {
+    "user_query": "Qual é o preço do iPhone 15 pro max?"
+  },
+  "output": {
+    "response_text": "Não foi possível encontrar o preço do iPhone 15 pro max",
+    "sources": []
+  },
+  "qa_metrics": {
+    "flag_inconsistency": false,
+    "source_count": 0
+  }
+}

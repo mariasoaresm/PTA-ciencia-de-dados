@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "56460d57-580a-4089-8838-c41c878b2d89",
+    "timestamp": "2025-11-28T20:11:16.573240",
+    "agent": "agent_tech_auto",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual é o ID do produto mais pesado de informatica?",
+    "output": "Executando busca..."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "database"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

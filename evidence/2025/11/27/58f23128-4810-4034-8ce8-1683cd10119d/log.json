@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "request_id": "58f23128-4810-4034-8ce8-1683cd10119d",
+    "timestamp": "2025-11-27T23:36:08.677987",
+    "agent": "agent_tech_auto",
+    "latency_ms": 0.0,
+    "environment": "dev"
+  },
+  "input": {
+    "user_query": "oi"
+  },
+  "output": {
+    "response_text": "Olá, sou o 'agent_tech_auto', especialista em Tecnologia e Automotivo. Como posso ajudar?",
+    "sources": []
+  },
+  "qa_metrics": {
+    "flag_inconsistency": false,
+    "source_count": 0
+  }
+}

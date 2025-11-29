@@ -1,85 +1,102 @@
 import duckdb
 import json
 import os
+from typing import Optional
 from agno.tools import Toolkit
 
 class DWQueryTool(Toolkit):
     def __init__(self):
         super().__init__(name="dw_query_tool")
-        # Caminhos dos CSVs (Devem estar na raiz do projeto)
-        self.products_csv = "produtos_tratados.csv"
-        self.items_csv = "itens_pedidos_tratados.csv"
         
-        self.register(self.query_products_by_category)
-        self.register(self.get_product_specs_by_id)
+        # 1. Configuração de Caminhos
+        current_file = os.path.abspath(__file__)
+        app_dir = os.path.dirname(os.path.dirname(current_file))
+        project_root = os.path.dirname(app_dir)
+        
+        self.files = {
+            "products": os.path.join(project_root, "produtos_tratados.csv").replace("\\", "/"),
+            "items": os.path.join(project_root, "itens_pedidos_tratados.csv").replace("\\", "/"),
+            "orders": os.path.join(project_root, "pedidos_tratados.csv").replace("\\", "/"),
+            "sellers": os.path.join(project_root, "vendedores_tratados.csv").replace("\\", "/")
+        }
 
-    def query_products_by_category(self, category_name: str) -> str:
+        self.register(self.get_database_schema)
+        self.register(self.run_sql_query)
+
+    def _get_connection(self):
         """
-        Busca produtos por categoria, calculando a média de preço real baseada nos pedidos.
-        Útil para responder: "Qual a faixa de preço de produtos de beleza?"
+        Cria conexão DuckDB com tratamento robusto de números (Ponto ou Vírgula).
+        """
+        con = duckdb.connect(database=':memory:')
         
-        Args:
-            category_name (str): Nome da categoria (ex: 'beleza_saude', 'informatica_acessorios', 'moveis_decoracao').
+        # PRODUTOS - Tratamento Híbrido: Troca vírgula por ponto, mas mantém ponto se já existir.
+        con.execute(f"""
+            CREATE OR REPLACE VIEW products AS 
+            SELECT 
+                product_id, 
+                product_category_name as category, 
+                TRY_CAST(REPLACE(CAST(product_weight_g AS VARCHAR), ',', '.') AS DOUBLE) as weight_g,
+                TRY_CAST(REPLACE(CAST(product_length_cm AS VARCHAR), ',', '.') AS DOUBLE) as length_cm,
+                TRY_CAST(REPLACE(CAST(product_height_cm AS VARCHAR), ',', '.') AS DOUBLE) as height_cm,
+                TRY_CAST(REPLACE(CAST(product_width_cm AS VARCHAR), ',', '.') AS DOUBLE) as width_cm
+            FROM read_csv_auto('{self.files['products']}')
+        """)
+
+        # ITENS - Tratamento Híbrido para Preço e Frete
+        # Se vier "10.50" -> Fica "10.50" (ok)
+        # Se vier "10,50" -> Vira "10.50" (ok)
+        con.execute(f"""
+            CREATE OR REPLACE VIEW items AS 
+            SELECT 
+                order_id, product_id, seller_id,
+                TRY_CAST(REPLACE(CAST(price AS VARCHAR), ',', '.') AS DOUBLE) as price,
+                TRY_CAST(REPLACE(CAST(freight_value AS VARCHAR), ',', '.') AS DOUBLE) as freight
+            FROM read_csv_auto('{self.files['items']}')
+        """)
+
+        # PEDIDOS
+        con.execute(f"""
+            CREATE OR REPLACE VIEW orders AS 
+            SELECT 
+                order_id, order_status,
+                CAST(order_estimated_delivery_date AS DATE) as estimated_date,
+                CAST(order_delivered_customer_date AS DATE) as delivered_date,
+                (CAST(order_delivered_customer_date AS DATE) - CAST(order_estimated_delivery_date AS DATE)) as delay_days
+            FROM read_csv_auto('{self.files['orders']}')
+        """)
+
+        # VENDEDORES
+        con.execute(f"""
+            CREATE OR REPLACE VIEW sellers AS 
+            SELECT seller_id, seller_city, seller_state
+            FROM read_csv_auto('{self.files['sellers']}')
+        """)
+        
+        return con
+
+    def get_database_schema(self) -> str:
+        return """
+        ESQUEMA (DUCKDB):
+        1. products (product_id, category, weight_g, length_cm)
+        2. items (order_id, product_id, seller_id, price, freight)
+        3. orders (order_id, order_status, estimated_date, delivered_date, delay_days)
+        4. sellers (seller_id, seller_city, seller_state)
+        
+        NOTA: Colunas numéricas já foram tratadas. Pode fazer SUM, AVG diretamente.
         """
+
+    def run_sql_query(self, query: str) -> str:
+        """Executa SQL arbitrário."""
         try:
-            if not os.path.exists(self.products_csv) or not os.path.exists(self.items_csv):
-                return json.dumps({"error": "Arquivos CSV não encontrados na raiz.", "status": "ERROR"})
-
-            con = duckdb.connect(database=':memory:')
+            con = self._get_connection()
+            # print(f"🔍 EXECUTANDO SQL: {query}") # Debug útil
             
-            # JOIN PODEROSO: Produtos + Itens (para pegar o preço)
-            # Traz o ID, Categoria e a Média de Preço dos itens vendidos
-            query = f"""
-                SELECT 
-                    p.product_id,
-                    p.product_category_name,
-                    AVG(i.price) as avg_price,
-                    COUNT(i.order_id) as total_sales
-                FROM read_csv_auto('{self.products_csv}') p
-                JOIN read_csv_auto('{self.items_csv}') i ON p.product_id = i.product_id
-                WHERE lower(p.product_category_name) LIKE '%{category_name.lower()}%'
-                GROUP BY p.product_id, p.product_category_name
-                ORDER BY total_sales DESC
-                LIMIT 5
-            """
+            df = con.execute(query).fetchdf()
             
-            result_df = con.execute(query).fetchdf()
+            if df.empty:
+                return "A consulta rodou com sucesso mas não retornou resultados."
             
-            if result_df.empty:
-                return json.dumps({"status": "NOT_FOUND", "message": f"Nenhuma categoria encontrada parecida com: {category_name}"})
-            
-            return json.dumps({"status": "SUCCESS", "data": result_df.to_dict(orient="records")}, default=str)
+            return df.to_json(orient='records', date_format='iso')
 
         except Exception as e:
-            return json.dumps({"error": str(e), "status": "CRITICAL_ERROR"})
-
-    def get_product_specs_by_id(self, product_id: str) -> str:
-        """
-        Busca as especificações técnicas exatas (peso, dimensões) de um ID específico.
-        Útil para o Agente Técnico validar dados.
-        """
-        try:
-            con = duckdb.connect(database=':memory:')
-            
-            query = f"""
-                SELECT 
-                    product_id,
-                    product_category_name,
-                    product_weight_g,
-                    product_length_cm,
-                    product_height_cm,
-                    product_width_cm,
-                    product_description_lenght
-                FROM read_csv_auto('{self.products_csv}')
-                WHERE product_id = '{product_id}'
-            """
-            
-            result_df = con.execute(query).fetchdf()
-            
-            if result_df.empty:
-                return json.dumps({"status": "NOT_FOUND"})
-            
-            return json.dumps({"status": "SUCCESS", "specs": result_df.to_dict(orient="records")[0]}, default=str)
-
-        except Exception as e:
-            return json.dumps({"error": str(e)})
+            return f"ERRO SQL: {str(e)}. Verifique a sintaxe e nomes das colunas."

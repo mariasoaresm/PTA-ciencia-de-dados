@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "8fb3c1f7-3e7a-48a5-b6fc-64fa173af2c3",
+    "timestamp": "2025-11-29T16:45:01.216399",
+    "agent": "BI Analyst",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual categoria tem a maior média de preço?",
+    "output": "A categoria pcs tem a maior média de preço."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "products"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

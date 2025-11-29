@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "id": "150cebde-6c54-475a-b629-3f0519883a1d",
+    "timestamp": "2025-11-29T17:31:29.349725",
+    "agent": "sql_expert",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "quais estados são mais caros em relação a frete?",
+    "output": "Os estados com os fretes mais caros são: AC (R$ 32.84), RO (R$ 31.97), PI (R$ 30.24), SE (R$ 28.83) e MT (R$ 27.34)."
+  },
+  "evidence": {
+    "raw_sources": [],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 0
+    }
+  }
+}

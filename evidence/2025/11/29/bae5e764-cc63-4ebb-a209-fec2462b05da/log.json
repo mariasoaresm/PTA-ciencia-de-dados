@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "id": "bae5e764-cc63-4ebb-a209-fec2462b05da",
+    "timestamp": "2025-11-29T17:42:15.360723",
+    "agent": "agent_tech_auto",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "qual o id do produto mais vendido de tecnologia?",
+    "output": "O ID do produto de tecnologia mais vendido é: d1c427060a0f73f6b889a5c7c61f2ac4"
+  },
+  "evidence": {
+    "raw_sources": [],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 0
+    }
+  }
+}

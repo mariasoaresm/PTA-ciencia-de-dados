@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "request_id": "4f4480ec-ed83-445e-b21c-1b86360f9e3b",
+    "timestamp": "2025-11-28T08:56:10.774338",
+    "agent": "agent_tech_auto",
+    "latency_ms": 1057.0,
+    "environment": "dev"
+  },
+  "input": {
+    "user_query": "Qual o pre\\u00e7o m\\u00e9dio na categoria de telefonia?"
+  },
+  "output": {
+    "response_text": "Erro interno no DuckDB: Binder Error: No function matches the given name and argument types 'avg(VARCHAR)'.",
+    "sources": []
+  },
+  "qa_metrics": {
+    "flag_inconsistency": false,
+    "source_count": 0
+  }
+}

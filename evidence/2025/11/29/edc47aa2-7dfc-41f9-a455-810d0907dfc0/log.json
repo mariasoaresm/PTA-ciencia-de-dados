@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "id": "edc47aa2-7dfc-41f9-a455-810d0907dfc0",
+    "timestamp": "2025-11-29T17:33:18.058114",
+    "agent": "sql_expert",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "quantos pedidos foram entregues dentro do prazo e quantos foram atrasados?",
+    "output": "Foram entregues 88.766 pedidos dentro do prazo e 7.736 pedidos com atraso."
+  },
+  "evidence": {
+    "raw_sources": [],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 0
+    }
+  }
+}

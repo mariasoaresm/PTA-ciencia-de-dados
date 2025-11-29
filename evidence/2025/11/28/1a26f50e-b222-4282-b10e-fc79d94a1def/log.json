@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "1a26f50e-b222-4282-b10e-fc79d94a1def",
+    "timestamp": "2025-11-28T20:19:21.809051",
+    "agent": "agent_tech_auto",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "ID do produto mais pesado de informática",
+    "output": "Produto mais pesado de informática"
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "database"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

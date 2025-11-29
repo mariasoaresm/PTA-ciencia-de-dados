@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "id": "ff4424cc-38df-4882-a5ad-cc13daa564ef",
+    "timestamp": "2025-11-29T17:01:43.978924",
+    "agent": "Analista de Dados SQL",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Quantos pedidos foram entregues sem atraso?",
+    "output": "Quantos pedidos foram entregues sem atraso?"
+  },
+  "evidence": {
+    "raw_sources": [],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 0
+    }
+  }
+}

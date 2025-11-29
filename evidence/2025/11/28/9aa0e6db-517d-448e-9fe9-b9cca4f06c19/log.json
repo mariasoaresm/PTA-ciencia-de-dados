@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "9aa0e6db-517d-448e-9fe9-b9cca4f06c19",
+    "timestamp": "2025-11-28T19:36:04.205515",
+    "agent": "agent_tech_auto",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "ID do produto mais pesado de tecnologia",
+    "output": "Produto não encontrado"
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "content": "Query result: product not found",
+        "type": "DW"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

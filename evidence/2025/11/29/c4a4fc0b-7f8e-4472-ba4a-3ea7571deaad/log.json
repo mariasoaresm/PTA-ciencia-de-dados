@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "c4a4fc0b-7f8e-4472-ba4a-3ea7571deaad",
+    "timestamp": "2025-11-29T16:25:15.077788",
+    "agent": "agent_tech_auto",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "What is the heaviest product in the telephony category?",
+    "output": "The heaviest product in the telephony category is product 9d6580f17a0cba74324ce82874fbbe13 with a weight of 4300.0"
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "get_max_min_info"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

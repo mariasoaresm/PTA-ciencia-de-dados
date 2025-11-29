@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "803ded41-9b03-4879-90e0-6ea73a1b969d",
+    "timestamp": "2025-11-28T20:12:37.649141",
+    "agent": "agent_tech_auto",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "What is the product ID of the heaviest computing product?",
+    "output": "Executing search..."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "database"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

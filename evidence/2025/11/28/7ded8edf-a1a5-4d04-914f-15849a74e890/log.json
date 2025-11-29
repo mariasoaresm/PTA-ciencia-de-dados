@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "id": "7ded8edf-a1a5-4d04-914f-15849a74e890",
+    "timestamp": "2025-11-28T20:22:24.284520",
+    "agent": "agent_tech_auto",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual é o ID do produto mais pesado na categoria informatica_aces?",
+    "output": "O ID do produto mais pesado na categoria informatica_acessorios é xxxxxx"
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "Fonte 1"
+      },
+      {
+        "type": "UNKNOWN",
+        "content": "Fonte 2"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 2
+    }
+  }
+}

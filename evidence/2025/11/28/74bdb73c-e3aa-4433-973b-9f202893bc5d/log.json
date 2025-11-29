@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "74bdb73c-e3aa-4433-973b-9f202893bc5d",
+    "timestamp": "2025-11-28T09:56:01.069945",
+    "agent": "agent_tech_auto",
+    "latency_ms": 1000.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "preco de telefonia",
+    "output": "Preco de telefonia"
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "content": "Query result...",
+        "type": "DW"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "id": "f1306459-ecd0-4ac4-84a8-7d25f0b75513",
+    "timestamp": "2025-11-28T20:23:33.383892",
+    "agent": "agent_lifestyle",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual é o produto mais caro na categoria esporte_lazer?",
+    "output": "Erro ao encontrar o produto mais caro na categoria esportes e lazer."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "source": "DB"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}
