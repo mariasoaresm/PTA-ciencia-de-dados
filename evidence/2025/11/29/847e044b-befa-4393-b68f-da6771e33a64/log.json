@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "847e044b-befa-4393-b68f-da6771e33a64",
+    "timestamp": "2025-11-29T17:39:40.310659",
+    "agent": "agent_home_decorations",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o frete médio do produto de ID debefa981200019b8c4a45d0176125a6?",
+    "output": "O frete médio do produto com ID `debefa981200019b8c4a45d0176125a6` é de R$ 21,28."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "content": "Consulta SQL para AVG(freight) para product_id debefa981200019b8c4a45d0176125a6",
+        "type": "DW"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

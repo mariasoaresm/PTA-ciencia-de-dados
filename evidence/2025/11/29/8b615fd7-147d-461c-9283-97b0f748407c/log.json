@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "8b615fd7-147d-461c-9283-97b0f748407c",
+    "timestamp": "2025-11-29T16:58:27.787122",
+    "agent": "Analista de Dados SQL",
+    "latency_ms": 500.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Os pedidos atrasados causam mais cancelamento?",
+    "output": "Sim, os pedidos atrasados causam mais cancelamento. A maioria dos pedidos cancelados estava em status de â€‘canceladoâ€™"
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "orders"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

@@ -3,9 +3,12 @@ from urllib.parse import quote
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from agno.playground import Playground, serve_playground_app
+from agno.models.google import Gemini
 
 # Imports Seguros
 try:
+    from app.agents.team import team
+    from app.agents.bi_analyst import bi_analyst_agent
     from app.agents.tech_auto import tech_auto_agent
     from app.agents.home_decorations import home_decorations_agent
     from app.agents.lifestyle import lifestyle_agent
@@ -24,7 +27,8 @@ async def lifespan(app: FastAPI):
 # Configuração do Playground com Agentes Individuais
 playground = Playground(
     name="O-Market Enterprise System",
-    agents=[tech_auto_agent, home_decorations_agent, lifestyle_agent] 
+    agents=[bi_analyst_agent, tech_auto_agent, home_decorations_agent, lifestyle_agent],
+    teams=[team],
 ).get_app()
 
 playground.router.lifespan_context = lifespan

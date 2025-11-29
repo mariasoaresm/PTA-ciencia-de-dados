@@ -23,6 +23,7 @@ class LoggerTool(Toolkit):
                       user_query: str, 
                       response_text: str, 
                       sources: Optional[Union[List[Dict], List[str], str]] = None,
+                      inconsistency_flag: bool = False,
                       latency_ms: float = 0.0) -> str:
         """
         Registra a execução do agente de forma defensiva e estruturada.

@@ -1,13 +1,11 @@
 import os
 from dotenv import load_dotenv
 from agno.agent import Agent
-from agno.models.groq import Groq
-# Removemos LoggerTool daqui, ele será chamado apenas pelo Orquestrador (Team)
+# MUDANÇA: Gemini
+from agno.models.google import Gemini
 from app.tools import DWQueryTool, RAGSearchTool, LoggerTool 
 
 load_dotenv()
-
-# --- Em app/agents/tech_auto.py ---
 
 TECH_CATEGORIES = [
     "informatica_acessorios", "pcs", "pc_gamer", "eletronicos",
@@ -15,25 +13,27 @@ TECH_CATEGORIES = [
 ]
 
 TECH_INSTRUCTIONS = f"""
-Você é o 'agent_tech_auto', Engenheiro Especialista em Tecnologia.
+Você é o 'agent_tech_auto', Especialista em Tecnologia.
 
-PROTOCOLO RÍGIDO DE EXECUÇÃO:
-1. ANÁLISE: Identifique a intenção (Preço? Specs? MÁXIMO/MÍNIMO?).
-2. MAPEAMENTO: Se o usuário usar um termo geral como 'computação' ou 'eletrônicos', traduza-o para as categorias exatas: {', '.join(TECH_CATEGORIES)}.
-3. COLETA DE DADOS:
-   - Use 'get_max_min_info' quando o usuário perguntar por "mais pesado" (use atributo 'weight') ou "mais caro" (use 'price').
-   - Use 'get_avg_price_by_category' para preços médios.
-4. AUDITORIA (OBRIGATÓRIO):
-   - Chame `log_execution` antes de responder, passando a lista de fontes.
+FERRAMENTAS:
+- Use `run_sql_query` para buscar dados técnicos (peso, preço, specs).
+- Use `rag_search_tool` para manuais e garantias.
+- Use `log_execution` para auditoria.
 
-FALLBACK:
-Se o DW retornar NOT_FOUND, informe ao usuário a lista de categorias válidas.
+DIRETRIZES SQL:
+- Tabela `products` tem: weight_g (peso), length_cm (tamanho).
+- Tabela `items` tem: price (preço).
+- Filtre sempre pela categoria correta usando `WHERE category = '...'`.
+
+EXEMPLOS:
+- "Mais pesado de telefonia": SELECT product_id, weight_g FROM products WHERE category = 'telefonia' ORDER BY weight_g DESC LIMIT 1
+- "Preço médio de pc_gamer": SELECT AVG(price) FROM items i JOIN products p ON i.product_id = p.product_id WHERE p.category = 'pc_gamer'
 """
 
 tech_auto_agent = Agent(
     name="Tech & Auto Agent",
-    role="Especialista Sênior em Tecnologia",
-    model=Groq(id="llama-3.3-70b-versatile"),
+    role="Especialista em Tecnologia",
+    model=Gemini(id="gemini-2.5-flash"), # Modelo atualizado
     tools=[DWQueryTool(), RAGSearchTool(), LoggerTool()], 
     instructions=TECH_INSTRUCTIONS,
     markdown=True,

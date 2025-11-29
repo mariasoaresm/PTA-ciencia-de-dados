@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "aa7abfe2-8831-4397-a78a-1eccc76dfb4a",
+    "timestamp": "2025-11-29T18:19:02.423016",
+    "agent": "O-Market Orchestrator",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "quais os estados que em média mais custam em relação ao frete?",
+    "output": "Tarefa encaminhada para o BI Analyst para identificar os estados com maior custo médio de frete."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "TEXT",
+        "content": "BI Analyst"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "8b182e9e-b16b-4a74-b184-3adb5a9dc6de",
+    "timestamp": "2025-11-29T16:45:41.274465",
+    "agent": "BI Analyst",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Quantos vendedores existem no estado de SP?",
+    "output": "Existem 1849 vendedores no estado de SP."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "UNKNOWN",
+        "content": "sellers"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

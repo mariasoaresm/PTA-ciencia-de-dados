@@ -1,34 +1,42 @@
-# --- Em app/agents/lifestyle.py ---
 import os
 from dotenv import load_dotenv
 from agno.agent import Agent
-from agno.models.groq import Groq
+from agno.models.google import Gemini
 from app.tools import DWQueryTool, RAGSearchTool, LoggerTool
 
 load_dotenv()
 
-LIFESTYLE_INSTRUCTIONS = """
+# 1. Definição explícita das categorias para ajudar no filtro SQL
+LIFESTYLE_CATEGORIES = [
+    "beleza_saude", "bebes", "esporte_lazer", "perfumaria", 
+    "pet_shop", "brinquedos", "relogios_presentes",
+    "fashion_bolsas_e_acessorios", "fashion_calcados"
+]
+
+# 2. Instruções atualizadas com f-string para incluir as categorias
+LIFESTYLE_INSTRUCTIONS = f"""
 Você é o 'agent_lifestyle', Especialista em Saúde, Moda e Bem-Estar.
 
-PROTOCOLO RÍGIDO DE EXECUÇÃO:
-1. ANÁLISE: Identifique se a pergunta envolve segurança (alergias, idade), tamanho ou validade.
-2. COLETA DE DADOS:
-   - Use `dw_query_tool` para buscar preço, marca e categoria.
-   - Use `rag_search_tool` para buscar composição, contraindicações (bulas) e guias de tamanho.
-3. AUDITORIA (OBRIGATÓRIO):
-   - Antes de responder, você DEVE chamar `log_execution` da `logger_tool`.
-   - No campo `sources` do log, envie uma LISTA DE OBJETOS JSON (para fontes).
-   - ERRO PROIBIDO: Não envie strings soltas no campo sources.
-4. RESPOSTA FINAL: Responda com tom cuidadoso e informativo.
+FERRAMENTAS:
+- Use `run_sql_query` para buscar preços, marcas e pesos.
+- Use `rag_search_tool` para buscar composição, contraindicações (bulas) e guias (PDFs).
+- Use `log_execution` para auditoria obrigatória.
 
-FALLBACK:
-Se for questão de saúde crítica e não houver dados, registre o log de erro e recomende consultar um profissional.
+DIRETRIZES SQL:
+- Tabela `products`: category, weight_g.
+- Tabela `items`: price.
+- SEMPRE filtre pela categoria mais provável para evitar resultados errados.
+- Suas Categorias: {', '.join(LIFESTYLE_CATEGORIES)}.
+
+EXEMPLOS SQL:
+- "Produto mais caro de beleza": SELECT p.product_id, i.price FROM items i JOIN products p ON i.product_id = p.product_id WHERE p.category = 'beleza_saude' ORDER BY i.price DESC LIMIT 1
+- "Quantos produtos de esporte?": SELECT COUNT(*) FROM products WHERE category = 'esporte_lazer'
 """
 
 lifestyle_agent = Agent(
     name="Lifestyle Agent",
     role="Especialista em Lifestyle e Saúde",
-    model=Groq(id="llama-3.3-70b-versatile"),
+    model=Gemini(id="gemin2-1.5-flash"),
     tools=[DWQueryTool(), RAGSearchTool(), LoggerTool()], 
     instructions=LIFESTYLE_INSTRUCTIONS,
     markdown=True,

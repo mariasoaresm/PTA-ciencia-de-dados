@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "9e9050b5-611f-4e78-84fb-3991e6f1ece3",
+    "timestamp": "2025-11-29T17:38:32.982321",
+    "agent": "agent_home_decorations",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o frete médio do produto de ID 00010242fe8c5a?",
+    "output": "Não foi possível encontrar o frete médio para o produto com o ID 00010242fe8c5a. Por favor, verifique se o ID está correto ou se há dados de frete associados a ele."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "DW",
+        "content": "Consulta SQL para AVG(freight) para product_id 00010242fe8c5a"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

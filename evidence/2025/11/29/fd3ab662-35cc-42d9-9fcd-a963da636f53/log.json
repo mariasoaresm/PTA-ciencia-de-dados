@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "fd3ab662-35cc-42d9-9fcd-a963da636f53",
+    "timestamp": "2025-11-29T17:50:54.098772",
+    "agent": "agent_tech_auto",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o preço médio dos produtos da categoria telefonia?",
+    "output": "O preço médio dos produtos da categoria telefonia é de 59.39."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "result": "[{\"avg(T2.price)\":59.3937359736}]",
+        "sql_query": "SELECT AVG(T2.price) FROM products AS T1 JOIN items AS T2 ON T1.product_id = T2.product_id WHERE T1.category = 'telefonia'"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

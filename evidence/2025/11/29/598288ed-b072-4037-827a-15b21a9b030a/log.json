@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "598288ed-b072-4037-827a-15b21a9b030a",
+    "timestamp": "2025-11-29T18:36:46.068716",
+    "agent": "O-Market Orchestrator",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Quais estados têm o frete mais caro?",
+    "output": "Os estados com os fretes mais caros são Acre, Rondônia e Piauí, com fretes médios de R$ 32,84, R$ 31,97 e R$ 30,24, respectivamente."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "type": "TEXT",
+        "content": "BI Analyst"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}
