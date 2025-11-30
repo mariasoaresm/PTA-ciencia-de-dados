@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "46131a87-0a49-4a4d-bc2b-b65c56c9e969",
+    "timestamp": "2025-11-29T16:38:44.127473",
+    "agent": "agent_home_decorations",
+    "latency_ms": 1000.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual é o produto mais caro na categoria esporte_lazer?",
+    "output": "O produto mais caro na categoria esporte_lazer é [nome_produto] com preço [preço]."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "content": "Tabela produtos...",
+        "type": "DW"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

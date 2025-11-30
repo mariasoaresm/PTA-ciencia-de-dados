@@ -1,33 +1,64 @@
-# Arquitetura do Sistema Multiagente - O-Market
+# Arquitetura do Sistema O-Market
 
-## 1. Visão Geral
-O sistema utiliza uma arquitetura de orquestração centralizada. O **Agente Orquestrador** recebe a pergunta do usuário e, baseado nas palavras-chave e intenção, roteia para um dos **Agentes Especialistas por Setor**.
+> **Visão Geral:** O O-Market é um ecossistema de Inteligência Artificial projetado para democratizar o acesso aos dados. Em vez de exigir que usuários aprendam programação ou SQL, o sistema utiliza uma rede de **Agentes Especialistas** coordenados por um **Orquestrador Central**.
 
-## 2. Diagrama de Alto Nível
+---
+
+## O Modelo: "Hub-and-Spoke" (Centro e Raios)
+
+Imagine um hospital. Você (o paciente) não entra na sala de cirurgia direto. Você passa pela **Triagem**. O enfermeiro da triagem decide se você precisa de um cardiologista, um ortopedista ou um clínico geral.
+
+O Sistema O-Market funciona exatamente assim:
+1.  **Hub (Centro):** O "Team Leader" atua como a triagem. Ele recebe o pedido e decide para quem repassar.
+2.  **Spoke (Raios):** Os Agentes Especialistas (BI, Tech, Home, Lifestyle) estão nas pontas, prontos para resolver problemas específicos.
+
+Isso garante que um especialista em *Móveis* nunca tente responder perguntas sobre *Peças de Carro*, evitando erros e "alucinações".
+
+---
+
+## Diagrama Visual do Fluxo
+
 ```mermaid
-flowchart LR
-    User[Usuário / UI] --> O(Orquestrador)
+graph TD
+    %% Nós Principais
+    User((Usuário))
+    Orch[Orquestrador<br/>Team Leader]
     
-    %% Roteamento
-    O --> A1[agent_home_decor]
-    O --> A2[agent_lifestyle]
-    O --> A3[agent_tech_auto]
-    
-    %% Fontes de Dados
-    subgraph Knowledge Base
-        DW[(Data Warehouse - SQL)]
-        RAG[(Vector DB / PDFs)]
+    %% Subgrafo: Especialistas
+    subgraph "Camada de Especialistas"
+        BI[BI Analyst<br/>(Negócios)]
+        Tech[Tech & Auto<br/>(Técnico)]
+        Home[Home & Decor<br/>(Arquitetura)]
+        Life[Lifestyle<br/>(Bem-Estar)]
     end
     
-    %% Conexões
-    A1 & A2 & A3 --> DW
-    A1 & A2 & A3 --> RAG
+    %% Subgrafo: Dados
+    subgraph "Camada de Dados & Ferramentas"
+        DB[(DuckDB<br/>Dados Numéricos)]
+        RAG[Manuais & PDFs<br/>Dados de Texto]
+    end
 
+    %% Fluxo
+    User -->|Faz uma pergunta| Orch
+    Orch -->|Analisa e Delega| BI
+    Orch -->|Analisa e Delega| Tech
+    Orch -->|Analisa e Delega| Home
+    Orch -->|Analisa e Delega| Life
 
+    %% Conexões de Dados
+    BI <-->|SQL| DB
+    Tech <-->|SQL| DB
+    Tech <-->|Busca| RAG
+    Home <-->|SQL| DB
+    Home <-->|Busca| RAG
+    Life <-->|SQL| DB
+    Life <-->|Busca| RAG
 
-REGRAS DE CONFIANÇA (ORQUESTRAÇÃO CENTRALIZADA)
-    - Prioridade absoluta ao DW: 
-        Se o agente retornar um dado vindo da ferramenta `DWQueryTool` (Planilhas), a resposta é considerada verdade absoluta (Confidence 1.0).
+    %% Retorno
+    BI & Tech & Home & Life -.->|Devolve Resposta| Orch
+    Orch -.->|Resposta Consolidada| User
     
-    - Zero Invenção:
-        Se a ferramenta retornar vazio, o agente deve retornar erro `DATA_NOT_FOUND`. O Orquestrador deve informar ao usuário que o dado não existe, em vez de tentar responder com conhecimento geral.
+    %% Estilo
+    style Orch fill:#f9f,stroke:#333,stroke-width:2px
+    style DB fill:#ff9,stroke:#333
+    style RAG fill:#9ff,stroke:#333

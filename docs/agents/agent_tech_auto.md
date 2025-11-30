@@ -1,64 +1,76 @@
-# Agente: agent_tech_auto
+# Agente: Tech & Auto Specialist
 
-## 1. Identificação
-- **Nome:** `agent_tech_auto`
-- **Setor:** Tecnologia, Automotivo e Indústria
-- **Descrição:** Especialista em produtos que exigem validação técnica rigorosa, compatibilidade de peças e normas industriais.
+> **Resumo:** O especialista "geek" do time. Seu foco é fornecer especificações técnicas precisas sobre computadores, eletrônicos e peças automotivas, garantindo que o usuário entenda o que está comprando.
 
-## 2. Escopo e Responsabilidades
-Este agente é a autoridade técnica do sistema. Ele deve ser acionado para:
-- **Especificações Rígidas:** Validar voltagem, potência (Watts), dimensões milimétricas, material e sockets.
-- **Compatibilidade:** Verificar se peça A funciona com peça B (ex: GPU vs Fonte, Peça Automotiva vs Modelo de Carro).
-- **Normas e Segurança:** Instruções de instalação e avisos de segurança industrial.
+---
 
-### Categorias Chave (Mapeamento do Banco de Dados)
-O agente é responsável exclusivamente pelos produtos nestas categorias:
-- **Tech:** `informatica_acessorios`, `pcs`, `pc_gamer`, `tablets_impressao_imagem`, `eletronicos`, `consoles_games`, `audio`
-- **Telefonia:** `telefonia`, `telefonia_fixa`
-- **Auto:** `automotivo`, `sinalizacao_e_seguranca`
-- **Outros:** `relogios_presentes`, `agro_industria_e_comercio`, `industria_comercio_e_negocios`
+## Perfil do Agente
 
-## 3. Interfaces (Contrato de API)
+* **Função:** Consultor Técnico de Tecnologia e Automotivo.
+* **Motor de Inteligência:** Google Gemini.
+* **Missão:** Clareza técnica. Ele ajuda o cliente a navegar por um mar de especificações (RAM, Gigabytes, Voltagem, Compatibilidade) para encontrar o produto ideal.
+* **Diferencial:** É treinado para ser rigoroso com números e categorias, evitando misturar peças de carro com peças de computador.
 
-### Entradas
-- `product_id` (String: SKU ou ID, obrigatório se identificado)
-- `user_query` (String: A pergunta técnica do usuário)
-- `context` (Dict: Opcional - Ex: nível técnico do usuário, histórico)
+---
 
-### Saída Padronizada (JSON)
-⚠️ **IMPORTANTE:** O agente deve retornar estritamente um objeto JSON. Não inclua texto fora do JSON.
+## Áreas de Atuação (Catálogo)
 
-**Esquema de Resposta:**
+Este agente é responsável pelos departamentos mais técnicos da loja. Ele domina os seguintes grupos de produtos:
 
-```json
-{
-  "request_id": "uuid-v4",
-  "agent": "agent_tech_auto",
-  "response_text": "A bateria Moura 60Ah é compatível com o Honda Civic 2020. A tensão é 12V e a corrente de partida (CCA) é 440A.",
-  "confidence": 0.95,
-  "sources": [
-    {
-      "type": "DW",
-      "ref": "tabela_produtos:row_9988",
-      "value": {"voltage": "12V", "amperage": "60Ah", "price": 450.00}
-    },
-    {
-      "type": "PDF",
-      "ref": "manual_honda_civic.pdf#page=145",
-      "snippet": "Especificação da bateria recomendada: 12V 60Ah com certificação Inmetro."
-    }
-  ],
-  "structured_data": {
-    "compatibility_verified": true,
-    "technical_specs": {
-      "voltage": "12V",
-      "capacity": "60Ah",
-      "cca": "440A",
-      "dimensions": "240x175x175mm"
-    }
-  },
-  "metadata": {
-    "model_version": "tech-v1.2",
-    "latency_ms": 120
-  }
-}
+| Grupo | Categorias Atendidas |
+| :--- | :--- |
+| **Computação & Games** | PCs, PC Gamer, Informática, Acessórios, Consoles e Jogos. |
+| **Gadgets & Eletrônicos** | Telefonia (Celulares/Smartphones) e Eletrônicos gerais. |
+| **Pesados & Mecânica** | Automotivo e Agro/Indústria e Comércio. |
+
+---
+
+## Ferramentas e Superpoderes
+
+Para responder dúvidas técnicas, o agente utiliza duas abordagens complementares:
+
+### 1. O Verificador de Specs (DWQueryTool)
+Acessa o banco de dados SQL para buscar dados exatos ("Hard Data").
+* **Logística e Peso:** Verifica o peso (`weight_g`) — crucial para frete de peças automotivas ou gabinetes de PC.
+* **Preço:** Monitora o valor exato dos produtos.
+* **Dimensões:** Confere se o produto tem o tamanho esperado (via `length_cm`).
+
+### 2. O Leitor de Manuais (RAGSearchTool)
+Utiliza Inteligência Artificial para ler a documentação textual.
+* **Garantia:** Busca termos de garantia e suporte técnico.
+* **Manuais Técnicos:** Procura informações de instalação ou compatibilidade em PDFs (quando disponíveis).
+
+---
+
+## Regras de Negócio (O "Cérebro" do Agente)
+
+Para evitar erros comuns em IA, este agente segue protocolos rígidos:
+
+1.  **Isolamento de Categoria:** Ao buscar um "mouse", ele é programado para olhar apenas em `informatica_acessorios`, ignorando categorias de brinquedos ou decoração. Isso é feito através de filtros SQL automáticos.
+2.  **Precisão Numérica:** Diferente de perguntas subjetivas (como "qual é mais bonito?"), este agente foca em dados objetivos (qual é mais rápido, mais pesado ou mais barato).
+
+---
+
+## Exemplos de Capacidades
+
+O que você pode perguntar para este agente?
+
+### Comparação Técnica
+* *"Qual é o smartphone mais pesado atualmente no estoque?"*
+* *"Liste os 3 PCs Gamers com o maior preço."*
+
+### Análise de Mercado
+* *"Qual é o preço médio dos produtos na categoria de telefonia?"*
+* *"Quantos itens de automotivo temos disponíveis para venda?"*
+
+### Dúvidas de Suporte (Via RAG)
+* *"Qual o tempo de garantia deste console?"*
+* *"O manual deste acessório automotivo menciona instalação elétrica?"*
+
+---
+
+## Detalhes Técnicos (Para Desenvolvedores)
+
+* **Código Fonte:** `app/agents/tech_auto.py`
+* **Filtros SQL (Whitelist):** O agente utiliza a lista `TECH_CATEGORIES` (incluindo `pcs`, `automotivo`, `telefonia`) para injetar cláusulas `WHERE` nas queries.
+* **Auditoria:** O uso da ferramenta `LoggerTool` é mandatório para registrar todas as consultas técnicas realizadas.
