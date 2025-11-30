@@ -36,7 +36,7 @@ EXEMPLOS SQL:
 lifestyle_agent = Agent(
     name="Lifestyle Agent",
     role="Especialista em Lifestyle e Saúde",
-    model=Groq(id="llama-3.3-70b-versatile"),
+    model=Groq(id="llama-3.3-70b-versatile", api_key=""),
     tools=[DWQueryTool(), RAGSearchTool(), LoggerTool()], 
     instructions=LIFESTYLE_INSTRUCTIONS,
     markdown=True,

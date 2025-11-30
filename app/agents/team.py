@@ -39,7 +39,7 @@ AUDITORIA FINAL:
 team = Team(
     name="O-Market Orchestrator",
     # MUDANÇA 3: Configuração correta do Gemini
-    model=Groq(id="llama-3.3-70b-versatile"), 
+    model=Groq(id="llama-3.3-70b-versatile", api_key=""),
     members=[bi_analyst_agent, tech_auto_agent, home_decorations_agent, lifestyle_agent],
     tools=[LoggerTool()], 
     instructions=TEAM_INSTRUCTIONS,

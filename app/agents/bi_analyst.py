@@ -35,7 +35,7 @@ IMPORTANTE:
 bi_analyst_agent = Agent(
     name="BI Analyst",
     role="Analista de Dados SQL",
-    model=Groq(id="llama-3.3-70b-versatile"), # Modelo atualizado
+    model=Groq(id="llama-3.3-70b-versatile", api_key=""),
     tools=[DWQueryTool(), LoggerTool()], 
     instructions=BI_INSTRUCTIONS,
     markdown=True,

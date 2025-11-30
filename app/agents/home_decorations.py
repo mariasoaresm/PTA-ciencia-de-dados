@@ -34,7 +34,7 @@ EXEMPLOS SQL:
 home_decorations_agent = Agent(
     name="Home & Decor Agent",
     role="Especialista em Casa e Decoração",
-    model=Groq(id="llama-3.3-70b-versatile"), # Modelo atualizado
+    model=Groq(id="llama-3.3-70b-versatile", api_key=""),
     tools=[DWQueryTool(), RAGSearchTool(), LoggerTool()], 
     instructions=HOME_INSTRUCTIONS,
     markdown=True,
