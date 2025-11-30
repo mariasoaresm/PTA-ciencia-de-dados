@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "id": "2cce5c2d-79a1-4a07-89cf-8cbceb5815fd",
+    "timestamp": "2025-11-29T16:37:41.196815",
+    "agent": "agent_lifestyle",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o frete médio do produto de ID 00010242fe8c5a?",
+    "output": "Erro no cálculo do frete médio."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "fonte": "duckdb"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}

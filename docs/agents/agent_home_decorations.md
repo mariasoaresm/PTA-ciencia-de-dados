@@ -1,70 +1,72 @@
-### Arquivo 2: `docs/agents/agent_home_decorations.md`
+# Agente: Home & Decor Specialist
 
-Este agente foca em **Física e Espaço**. O JSON destaca dimensões e materiais para garantir que o móvel caiba na casa do cliente.
+> **Resumo:** O seu consultor digital de arquitetura e decoração, especializado em verificar se o produto cabe no seu ambiente e como ele é montado.
 
-```markdown
-# Agente: agent_home_decorations
+---
 
-## 1. Identificação
-- **Nome:** `agent_home_decorations`
-- **Setor:** Casa, Móveis, Eletro e Construção
-- **Descrição:** Especialista em itens para o lar, focando em dimensões físicas, montagem, materiais e consumo energético.
+## Perfil do Agente
 
-## 2. Escopo e Responsabilidades
-Este agente deve garantir que o produto "caiba" e "funcione" no ambiente do usuário.
-- **Dimensões e Espaço:** Validar altura, largura, profundidade e peso.
-- **Instalação:** Complexidade de montagem, necessidade de ferramentas, voltagem de eletros.
-- **Materiais:** Tipo de madeira, tecido, durabilidade e cuidados de limpeza.
+* **Função:** Arquiteto e Especialista em Casa & Decoração.
+* **Motor de Inteligência:** Google Gemini.
+* **Missão:** Unir a estética à funcionalidade. Ele garante que o usuário compre o móvel certo, com as medidas certas e o material adequado, evitando devoluções por problemas de tamanho ou compatibilidade.
+* **Diferencial:** Capacidade híbrida de analisar dados técnicos (dimensões) e dados documentais (manuais de montagem).
 
-### Categorias Chave (Mapeamento do Banco de Dados)
-O agente é responsável exclusivamente pelos produtos nestas categorias:
-- **Móveis:** `moveis_decoracao`, `moveis_escritorio`, `moveis_sala`, `moveis_cozinha_area_de_servico_jantar_e_jardim`, `moveis_quarto`, `moveis_colchao_e_estofado`
-- **Utilidades:** `utilidades_domesticas`, `cama_mesa_banho`
-- **Eletros:** `eletrodomesticos`, `eletrodomesticos_2`, `eletroportateis`, `climatizacao`, `la_cuisine`, `portateis_casa_forno_e_cafe`, `portateis_cozinha_e_preparadores_de_alimentos`, `casa_conforto`, `casa_conforto_2`
-- **Construção:** `casa_construcao`, `construcao_ferramentas_seguranca`, `construcao_ferramentas_construcao`, `construcao_ferramentas_ferramentas`, `construcao_ferramentas_iluminacao`, `construcao_ferramentas_jardim`, `ferramentas_jardim`
+---
 
-## 3. Interfaces (Contrato de API)
+## Áreas de Atuação (Escopo)
 
-### Entradas
-- `product_id` (String: SKU ou ID)
-- `user_query` (String: Pergunta sobre medidas, material ou montagem)
-- `context` (Dict: Opcional)
+Este agente é treinado para ignorar produtos que não sejam do seu departamento. Ele foca exclusivamente nas seguintes categorias:
 
-### Saída Padronizada (JSON)
-⚠️ **IMPORTANTE:** O agente deve retornar estritamente um objeto JSON.
+| Categoria | O que inclui? |
+| :--- | :--- |
+| **Móveis e Decoração** | Sofás, estantes, mesas, decoração geral. |
+| **Cama, Mesa e Banho** | Têxteis, toalhas, lençóis e acessórios. |
+| **Escritório e Home Office** | Cadeiras ergonômicas, escrivaninhas, organização. |
+| **Utilidades Domésticas** | Itens de cozinha e organização do lar. |
+| **Jardim e Construção** | Ferramentas manuais, itens de jardinagem e construção civil. |
+| **Eletrodomésticos** | Itens elétricos voltados para o lar. |
 
-**Esquema de Resposta (Exemplo: Móvel):**
+---
 
-```json
-{
-  "request_id": "uuid-v4",
-  "agent": "agent_home_decorations",
-  "response_text": "O Sofá Retrátil tem 2,30m de largura. Ele é feito de madeira de eucalipto e tecido suede. Requer montagem profissional.",
-  "confidence": 0.98,
-  "sources": [
-    {
-      "type": "DW",
-      "ref": "db_moveis:sku_998",
-      "value": {"width_cm": 230, "height_cm": 95, "depth_cm": 110}
-    },
-    {
-      "type": "PDF",
-      "ref": "manual_montagem_sofa.pdf#page=1",
-      "snippet": "Estrutura: Madeira Eucalipto Reflorestada. Requer montagem: Sim."
-    }
-  ],
-  "structured_data": {
-    "dimensions": {
-      "width_cm": 230,
-      "height_cm": 95,
-      "depth_open_cm": 160,
-      "depth_closed_cm": 110
-    },
-    "material": "Suede / Eucalipto",
-    "assembly_required": true
-  },
-  "metadata": {
-    "model_version": "home-v1.1",
-    "latency_ms": 130
-  }
-}
+## Ferramentas e Superpoderes
+
+Diferente de um analista comum, este agente possui duas "caixas de ferramentas" distintas para responder perguntas completas:
+
+### 1. A Régua Digital (DWQueryTool)
+Utiliza o banco de dados SQL para validar **números e métricas**.
+* **Verificação de Espaço:** Acessa `length_cm` (comprimento), `width_cm` (largura) e `height_cm` (altura).
+* **Logística:** Verifica o peso (`weight_g`) para estimar dificuldade de manuseio.
+* **Financeiro:** Consulta preços e custos de frete.
+
+### 2. O Bibliotecário Técnico (RAGSearchTool)
+Utiliza Inteligência Artificial para ler documentos (PDFs e textos) que não estão em tabelas.
+* **Manuais de Instrução:** Busca informações sobre montagem e instalação.
+* **Materiais:** Responde dúvidas sobre composição (ex: "É madeira maciça ou MDF?").
+
+---
+
+## Exemplos de Capacidades
+
+O que você pode perguntar para este agente?
+
+### Planejamento de Espaço (Foco em Dimensões)
+* *"Tenho um espaço de 2 metros na minha sala. Qual a maior mesa de jantar que cabe ali?"*
+* *"Essa cadeira de escritório passa em uma porta de 80cm de largura?"*
+
+### Detalhes do Produto (Foco em RAG/Documentos)
+* *"Como é feita a montagem desse guarda-roupa? Preciso de parafusadeira?"*
+* *"Qual o material do tampo dessa mesa? É resistente à água?"*
+
+### Análise Comparativa (Foco em Custo-Benefício)
+* *"Qual é o preço médio dos kits de cama e banho disponíveis?"*
+* *"Liste as ferramentas de jardim mais leves (menor peso) para idosos."*
+
+---
+
+## Detalhes Técnicos (Para Desenvolvedores)
+
+* **Código Fonte:** `app/agents/home_decorations.py`
+* **Restrições de Sistema:**
+    * O agente aplica filtros automáticos nas queries SQL (`WHERE category = ...`) para garantir que não sugira produtos de outros departamentos (como automotivo ou beleza).
+    * Requer acesso a uma *Vector Store* (para o RAG) e ao *DuckDB* (para o SQL).
+* **Auditoria:** Todas as consultas são registradas via `LoggerTool` para controle de qualidade das recomendações.

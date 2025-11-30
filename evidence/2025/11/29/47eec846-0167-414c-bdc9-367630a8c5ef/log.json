@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "id": "47eec846-0167-414c-bdc9-367630a8c5ef",
+    "timestamp": "2025-11-29T16:37:27.386674",
+    "agent": "agent_home_decorations",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual o frete médio do produto de ID 00010242fe8c5a?",
+    "output": "Desculpe, não foi possível calcular o frete médio do produto."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "content": "Tabela fretes...",
+        "type": "DW"
+      },
+      {
+        "content": "Erro no cálculo do frete médio",
+        "type": "LOG"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 2
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "id": "ad32e757-e997-4602-84b2-e95a4f9c9cca",
+    "timestamp": "2025-11-29T16:38:46.210901",
+    "agent": "agent_home_decorations",
+    "latency_ms": 2000.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual é o produto mais caro na categoria esporte_lazer?",
+    "output": "Desculpe, ocorreu um erro ao processar sua solicitação. Por favor, tente novamente."
+  },
+  "evidence": {
+    "raw_sources": [
+      {
+        "content": "Atributo desconhecido: preco",
+        "type": "DW"
+      }
+    ],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 1
+    }
+  }
+}
