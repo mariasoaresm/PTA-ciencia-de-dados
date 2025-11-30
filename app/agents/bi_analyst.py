@@ -1,9 +1,8 @@
 import os
 from dotenv import load_dotenv
 from agno.agent import Agent
-# MUDANÇA: Usando Gemini
-from agno.models.google import Gemini
 from app.tools import DWQueryTool, LoggerTool
+from agno.models.groq import Groq
 
 load_dotenv()
 
@@ -36,7 +35,7 @@ IMPORTANTE:
 bi_analyst_agent = Agent(
     name="BI Analyst",
     role="Analista de Dados SQL",
-    model=Gemini(id="gemini-2.5-flash"), # Modelo atualizado
+    model=Groq(id="llama-3.3-70b-versatile"), # Modelo atualizado
     tools=[DWQueryTool(), LoggerTool()], 
     instructions=BI_INSTRUCTIONS,
     markdown=True,

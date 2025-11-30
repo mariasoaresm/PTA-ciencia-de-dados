@@ -1,12 +1,12 @@
 import os
 from dotenv import load_dotenv
 from agno.agent import Agent
-from agno.models.google import Gemini
+from agno.models.groq import Groq
 from app.tools import DWQueryTool, RAGSearchTool, LoggerTool
 
 load_dotenv()
 
-# 1. Definição explícita das categorias para ajudar no filtro SQL
+# 1. Definição explícita das categorias para ajudar no filtro SQL correto
 LIFESTYLE_CATEGORIES = [
     "beleza_saude", "bebes", "esporte_lazer", "perfumaria", 
     "pet_shop", "brinquedos", "relogios_presentes",
@@ -36,7 +36,7 @@ EXEMPLOS SQL:
 lifestyle_agent = Agent(
     name="Lifestyle Agent",
     role="Especialista em Lifestyle e Saúde",
-    model=Gemini(id="gemin2-1.5-flash"),
+    model=Groq(id="llama-3.3-70b-versatile"),
     tools=[DWQueryTool(), RAGSearchTool(), LoggerTool()], 
     instructions=LIFESTYLE_INSTRUCTIONS,
     markdown=True,

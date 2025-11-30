@@ -3,7 +3,7 @@ from urllib.parse import quote
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from agno.playground import Playground, serve_playground_app
-from agno.models.google import Gemini
+from agno.models.groq import Groq
 
 # Imports Seguros
 try:
