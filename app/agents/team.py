@@ -1,8 +1,7 @@
 import os
 from dotenv import load_dotenv
 from agno.team import Team
-# MUDANÇA 1: Usar Gemini (Google) em vez de Groq
-from agno.models.google import Gemini
+from agno.models.groq import Groq
 
 from app.tools import LoggerTool
 
@@ -41,7 +40,7 @@ AUDITORIA FINAL:
 team = Team(
     name="O-Market Orchestrator",
     # MUDANÇA 3: Configuração correta do Gemini
-    model=Gemini(id="gemini-2.5-flash"), 
+    model=Groq(id="llama-3.3-70b-versatile"), 
     members=[bi_analyst_agent, tech_auto_agent, home_decorations_agent, lifestyle_agent],
     tools=[LoggerTool()], 
     instructions=TEAM_INSTRUCTIONS,

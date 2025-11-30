@@ -1,8 +1,7 @@
 import os
 from dotenv import load_dotenv
 from agno.agent import Agent
-# MUDANÇA: Usando Gemini
-from agno.models.google import Gemini
+from agno.models.groq import Groq
 from app.tools import DWQueryTool, RAGSearchTool, LoggerTool
 
 load_dotenv()
@@ -35,7 +34,7 @@ EXEMPLOS SQL:
 home_decorations_agent = Agent(
     name="Home & Decor Agent",
     role="Especialista em Casa e Decoração",
-    model=Gemini(id="gemini-2.5-flash"), # Modelo atualizado
+    model=Groq(id="llama-3.3-70b-versatile"), # Modelo atualizado
     tools=[DWQueryTool(), RAGSearchTool(), LoggerTool()], 
     instructions=HOME_INSTRUCTIONS,
     markdown=True,
