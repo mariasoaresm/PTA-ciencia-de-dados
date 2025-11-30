@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from agno.team import Team
 from agno.models.groq import Groq
-
 from app.tools import LoggerTool
 
 # Importa agentes especialistas

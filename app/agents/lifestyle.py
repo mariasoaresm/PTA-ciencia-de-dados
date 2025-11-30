@@ -6,7 +6,7 @@ from app.tools import DWQueryTool, RAGSearchTool, LoggerTool
 
 load_dotenv()
 
-# 1. Definição explícita das categorias para ajudar no filtro SQL
+# 1. Definição explícita das categorias para ajudar no filtro SQL correto
 LIFESTYLE_CATEGORIES = [
     "beleza_saude", "bebes", "esporte_lazer", "perfumaria", 
     "pet_shop", "brinquedos", "relogios_presentes",
