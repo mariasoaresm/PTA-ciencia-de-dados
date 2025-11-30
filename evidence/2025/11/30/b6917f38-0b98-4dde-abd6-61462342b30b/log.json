@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "id": "b6917f38-0b98-4dde-abd6-61462342b30b",
+    "timestamp": "2025-11-30T17:25:12.711523",
+    "agent": "Analista de Dados SQL",
+    "latency_ms": 100.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Calcular o total de vendas em reais, somando os preços dos produtos vendidos",
+    "output": "O valor total de vendas é de R$ 11.089.741,66"
+  },
+  "evidence": {
+    "raw_sources": [],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 0
+    }
+  }
+}

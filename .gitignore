@@ -5,6 +5,12 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Ignorar arquivos de ambiente (Segurança)
+.env
+
+# Ignorar PDFs gerados automaticamente
+*.pdf
+
 # C extensions
 *.so
 

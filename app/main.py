@@ -1,17 +1,25 @@
+import os
+from dotenv import load_dotenv # <--- 1. Importante para ler o .env
 from contextlib import asynccontextmanager
 from urllib.parse import quote
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from agno.playground import Playground, serve_playground_app
-from agno.models.groq import Groq
+from app.tools.pdf_converter import check_and_convert_csv_to_pdf 
 
-# Imports Seguros
+# 2. Carrega as variáveis de ambiente IMEDIATAMENTE
+load_dotenv()
+
+# 3. Verificação de segurança (Debug da Chave)
+print(f"🔑 Chave Groq detectada: {'SIM' if os.getenv('GROQ_API_KEY') else 'NÃO'}")
+
 try:
     from app.agents.team import team
     from app.agents.bi_analyst import bi_analyst_agent
     from app.agents.tech_auto import tech_auto_agent
     from app.agents.home_decorations import home_decorations_agent
     from app.agents.lifestyle import lifestyle_agent
+
 except ImportError as e:
     print(f"❌ [CRITICAL] Erro de Importação: {e}")
     exit(1)
@@ -19,6 +27,17 @@ except ImportError as e:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("\n🚀 [SYSTEM STARTUP] O-Market Playground Iniciando...")
+    
+    try:
+        # Define a raiz do projeto subindo dois níveis a partir de app/
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(current_dir) # Sobe de 'app' para a raiz
+        
+        # Executa a verificação e conversão
+        check_and_convert_csv_to_pdf(project_root)
+    except Exception as e:
+        print(f"⚠️ [WARNING] Falha na verificação de PDFs: {e}")
+
     print("✅ Logger System: ONLINE")
     print("✅ Database Connection: READY")
     yield

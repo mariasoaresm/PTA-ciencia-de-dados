@@ -32,7 +32,7 @@ EXEMPLOS:
 tech_auto_agent = Agent(
     name="Tech & Auto Agent",
     role="Especialista em Tecnologia",
-    model=Groq(id="llama-3.3-70b-versatile"), # Modelo atualizado
+    model=Groq(id="llama-3.3-70b-versatile", api_key=""),
     tools=[DWQueryTool(), RAGSearchTool(), LoggerTool()], 
     instructions=TECH_INSTRUCTIONS,
     markdown=True,

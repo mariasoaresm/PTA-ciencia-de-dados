@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "id": "951aa0d8-745a-450d-8398-20b138f5249e",
+    "timestamp": "2025-11-30T17:25:09.351655",
+    "agent": "O-Market Orchestrator",
+    "latency_ms": 0.0,
+    "environment": "dev",
+    "model": "llama-3.3-70b-versatile"
+  },
+  "interaction": {
+    "input": "Qual foi o total de vendas em reais (soma dos preços)?",
+    "output": "Roteado para BI Analyst"
+  },
+  "evidence": {
+    "raw_sources": [],
+    "qa_flags": {
+      "inconsistency_detected": false,
+      "source_count": 0
+    }
+  }
+}
